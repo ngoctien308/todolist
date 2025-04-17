@@ -1,14 +1,5 @@
 <?php
-    $host = "localhost:3307";
-    $username = "root";
-    $password = "";
-    $dbname = "todolist";
-
-    $conn = new mysqli($host, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Database connection failed: " . $conn->connect_error);
-    }
-
+include './db.php';
 // get all tasks
 $tasksQuery = $conn->query("select * from tasks");
 // add a new task
@@ -21,8 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['content'])) {
     }
     header("Location: index.php");
 }
-
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -47,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['content'])) {
                                      <h4>".$row['content']."</h4>
                                      <div>
                                          <button class='btn btn-success'>Complete</button>
-                                         <button class='btn btn-danger'>Delete</button>
+                                         <a href='./delete.php?taskId=".$row['id']."' class='btn btn-danger'>Delete</a>
                                      </div>
                                    </div>
                          </div>";
