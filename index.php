@@ -31,11 +31,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['content'])) {
        <?php
             if ($tasksQuery->num_rows > 0) {
                   while ($row = $tasksQuery->fetch_assoc()) {
+                    $btnComplete;
+                    $content;
+                    if($row['completed'] == 0) {
+                        $btnComplete = "<a href='./complete.php?taskId=".$row['id']."' class='btn btn-success'>Complete</a>";
+                        $content = "<h4>".$row['content']."</h4>";
+                    } else {
+                        $btnComplete = "";
+                        $content = "<h4 style='text-decoration: line-through;'>".$row['content']."</h4>";
+                    }
                     echo "<div class='card mt-2'>
                                    <div class='card-body d-flex justify-content-between'>
-                                     <h4>".$row['content']."</h4>
+                                     ".$content."
                                      <div>
-                                         <button class='btn btn-success'>Complete</button>
+                                         ".$btnComplete."
                                          <a href='./delete.php?taskId=".$row['id']."' class='btn btn-danger'>Delete</a>
                                      </div>
                                    </div>
