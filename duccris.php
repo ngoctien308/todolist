@@ -1,2 +1,1 @@
-duc dz 
-<?php echo 'ahhaa'; ?>
+hello 1
